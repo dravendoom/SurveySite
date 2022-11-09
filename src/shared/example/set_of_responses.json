@@ -1,0 +1,41 @@
+{
+  "responses": [
+    {
+      "id": "1",
+      "type": "MULTIPLE_CHOICE",
+      "response": "I absolutely love it!"
+    },
+    {
+      "id": "2",
+      "type": "DRAG_AND_DROP",
+      "response": [
+        "BOO to that school",
+        "What's a JU?"
+      ]
+    },
+    {
+      "id": "3",
+      "type": "SLIDER",
+      "response": "1"
+    },
+    {
+      "id": "4",
+      "type": "CAROUSEL",
+      "response": "A"
+    },
+    {
+      "id": "5",
+      "type": "RANK",
+      "response": [
+        "Financial Aid",
+        "Tests",
+        "Homework",
+        "Rent",
+        "Insurance",
+        "Meals",
+        "Class Load",
+        "Jobs"
+      ]
+    }
+  ]
+}
