@@ -5,6 +5,14 @@ class User {
         this.email = email;
     }
 
+    toJson(){
+        return {
+          "uid" : this.uid,
+          "username" : this.username,
+          "email" : this.email
+        };
+    }
+
     getUid(){
         return this.uid;
     }

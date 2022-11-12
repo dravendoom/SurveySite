@@ -11,3 +11,7 @@ function connectToServer(){
         console.log("Message from server: " + message);
     });
 }
+
+function getSocket(){
+    return socket;
+}
