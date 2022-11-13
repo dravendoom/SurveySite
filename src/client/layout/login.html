@@ -3,27 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+
+    <!-- Socket.io -->
+    <script src="../../../node_modules/socket.io/client-dist/socket.io.js"
+            type="application/javascript"></script>
+    <script src="https://cdn.socket.io/4.5.3/socket.io.min.js"
+            integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi"
+            crossorigin="anonymous"></script>
+
+    <!-- Client Connection -->
+    <script src="../scripts/client.js" type="application/javascript" defer></script>
+    <!-- Auth Util -->
+    <script src="../shared/util/client_server_auth_util.js" type="application/javascript" defer></script>
+    <script src="../scripts/login_validation.js" type="application/javascript" defer></script>
 </head>
 <body>
     <!-- Navigation Bar -->
     <script src="../scripts/navigation.js" type="application/javascript"></script>
     <form>
         <div>
-            <label id="email_label" for="email_input">Email</label>
-            <input id="email_input" type="email"/>
+            <label id="login_email_label" for="login_email_input">Email</label>
+            <input id="login_email_input" type="email"/>
         </div>
         <div>
-            <label id="password_label" for="password_input">Password</label>
-            <input id="password_input" type="password"/>
-        </div>
-        <div>
-            <label id="login_submit_label" for="login_submit">Login</label>
-            <input id="login_submit" type="submit"/>
-        </div>
-        <div>
-            <label id="login_reset_label" for="login_reset">Clear</label>
-            <input id="login_reset" type="reset"/>
+            <label id="login_password_label" for="login_password_input">Password</label>
+            <input id="login_password_input" type="password"/>
         </div>
     </form>
+    <div>
+        <button id="login_submit_button" onclick="login()">
+            Login
+        </button>
+    </div>
+    <div>
+        <button id="login_reset_button" onclick="clearInputs()">
+            Clear
+        </button>
+    </div>
 </body>
 </html>

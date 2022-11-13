@@ -35,8 +35,21 @@ function validateInputs(){
         return false;
     }
 
+    // check if email is in correct format
+    if(!checkEmailIsValid(email.value)){
+        alert("Email is not in correct format!");
+        return false;
+    }
+
+    // check if password meets minimum requirements
+    if(!checkPasswordMeetsRequirements(password.value)){
+        alert("Password does not meet minimum requirements");
+        return false;
+    }
+
     // check if passwords match
     if(!checkPasswordsMatch(password.value, confirmPassword.value)){
+        alert("Passwords do not match");
         return false;
     }
 
@@ -48,32 +61,6 @@ function validateInputs(){
         "organization": organization.value,
         "email": email.value,
         "password": password.value,
-    });
-}
-
-function isEmpty(inputText){
-    return inputText === "";
-}
-
-function checkPasswordsMatch(password, confirmPassword){
-    return password === confirmPassword;
-}
-
-// only checks if email is in valid format, not if it actually exists anywhere
-function checkEmailIsValid(){
-    //let emailRegex = /w*@/;
-}
-
-function verifyCredentialsWithServer(userCredentialsJson){
-    socket.emit("verify_credentials", userCredentialsJson);
-
-    socket.on("verify_credentials_result", (message)=>{
-        if (message){
-            console.log("USER AUTHENTICATED AND CREATED");
-            window.location.assign("../layout/survey_library.html");
-        } else {
-            alert("Server rejected the authentication");
-        }
     });
 }
 
