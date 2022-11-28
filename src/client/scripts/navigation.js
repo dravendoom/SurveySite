@@ -1,7 +1,7 @@
 let dom = document;
+let navDiv = dom.createElement("div");
 
 insertBootstrap();
-insertNavigationBar();
 
 function insertBootstrap(){
     let bootstrapLink = document.createElement("link");
@@ -13,40 +13,97 @@ function insertBootstrap(){
     dom.head.appendChild(bootstrapLink);
 }
 
-function insertNavigationBar(){
-    let navDiv = dom.createElement("div");
+function insertNavigationBar(isAuthComplete){
+
+    /* model
+    * <div class="navbar navbar-expand-lg bg-light"><div id="navbarParentDiv" class="container-fluid d-flex justify-content-start ms-1">
+            <div id="navbarBrandingSectionDiv" class="navbar-brand">
+                <a class="navbar-brand" href="index.html">
+                    SurveySite
+                </a>
+            </div>
+            <div id="navbarItemsSectionDiv" class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="index.html">
+                    Home
+                </a>
+                <a class="nav-link" href="survey_feed.html">
+                    Surveys
+                </a><a class="nav-link" href="survey_library.html">
+                    My Library
+                </a>
+                <a class="nav-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                    Analytics
+                </a>
+            </div>
+            <div id="navbarAccountSectionDiv" class="navbar-nav ms-auto me-1">
+                <a class="nav-link" href="login.html">
+                    Login
+                </a>
+                <a class="nav-link" href="sign_up.html">
+                    Sign-Up
+                </a>
+            </div>
+        </div></div>
+    * */
+
     navDiv.classList.add("navbar");
     navDiv.classList.add("navbar-expand-lg");
     navDiv.classList.add("bg-light");
 
-    let navInnerHTML = "<div id=\"navbarParentDiv\" class=\"container-fluid d-flex justify-content-start ms-1\">\n" +
-        "            <div id=\"navbarBrandingSectionDiv\" class=\"navbar-brand\">\n" +
-        "                <a class=\"navbar-brand\" href=\"index.html\">\n" +
-        "                    SurveySite\n" +
-        "                </a>\n" +
-        "            </div>\n" +
-        "            <div id=\"navbarItemsSectionDiv\" class=\"navbar-nav\">\n" +
-        "                <a class=\"nav-link active\" aria-current=\"page\" href=\"index.html\">\n" +
-        "                    Home\n" +
-        "                </a>\n" +
-        "                <a class=\"nav-link\" href=\"survey_feed.html\">\n" +
-        "                    Surveys\n" +
-        "                </a>\n" +
-        "                <a class=\"nav-link\" href=\"https://www.youtube.com/watch?v=dQw4w9WgXcQ\" hidden>\n" +
-        "                    Analytics\n" +
-        "                </a>\n" +
-        "            </div>\n" +
-        "            <div id=\"navbarAccountSectionDiv\" class=\"navbar-nav ms-auto me-1\">\n" +
-        "                <a class=\"nav-link\" href=\"login.html\">\n" +
-        "                    Login\n" +
-        "                </a>\n" +
-        "                <a class=\"nav-link\" href=\"sign_up.html\">\n" +
-        "                    Sign-Up\n" +
-        "                </a>\n" +
-        "            </div>\n" +
-        "        </div>";
+    let hiddenString;
 
-    navDiv.innerHTML = navInnerHTML;
+    if(isAuthComplete !== null) hiddenString = isAuthComplete ? "" : "hidden";
+    else hiddenString = "";
+
+    let navbarParentDiv = dom.createElement("div");
+    navbarParentDiv.id = "navbarParentDiv";
+    navbarParentDiv.classList.add("container-fluid");
+    navbarParentDiv.classList.add("d-flex");
+    navbarParentDiv.classList.add("justify-content-start");
+    navbarParentDiv.classList.add("ms-1");
+
+    let navbarBrandingSectionDiv = dom.createElement("div");
+    navbarBrandingSectionDiv.id = "navbarBrandingSectionDiv";
+    navbarBrandingSectionDiv.classList.add("navbar-brand");
+
+    let navbarBrandLink = dom.createElement("a");
+    navbarBrandLink.classList.add("ms-1");
+    navbarBrandLink.href = "index.html";
+
+    let navbarHomeLink = dom.createElement("a");
+    navbarHomeLink.classList.add("ms-1");
+    navbarHomeLink.href = "index.html";
+
+    let navbarSurveysLink = dom.createElement("a");
+    navbarSurveysLink.classList.add("ms-1");
+    navbarSurveysLink.href = "survey_feed.html";
+
+    let navbarLibraryLink = dom.createElement("a");
+    navbarLibraryLink.classList.add("ms-1");
+    navbarLibraryLink.href = "survey_library.html";
+
+    let navbarAnalyticsLink = dom.createElement("a");
+    navbarAnalyticsLink.classList.add("ms-1");
+    navbarAnalyticsLink.href = "index.html";
+
+    let navbarLoginLink = dom.createElement("a");
+    navbarLoginLink.classList.add("ms-1");
+    navbarLoginLink.href = "login.html";
+
+    let navbarSignupLink = dom.createElement("a");
+    navbarSignupLink.classList.add("ms-1");
+    navbarSignupLink.href = "sign_up.html";
+
+    navbarParentDiv.appendChild(navbarBrandingSectionDiv);
+    navDiv.appendChild(navbarParentDiv);
 
     dom.body.appendChild(navDiv);
+}
+
+function authNavigationBar(){
+    insertNavigationBar(true);
+}
+
+function noAuthNavigationBar(){
+    insertNavigationBar(false);
 }

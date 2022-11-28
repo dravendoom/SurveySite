@@ -44,4 +44,10 @@ io.on("connection", (socket) =>{
       }
    });
 
+   socket.on("auth_status_request", (userID)=>{
+      if(userID === 1){
+         socket.emit("auth_status_response", "LOGGED_IN");
+      }
+   })
+
 });
