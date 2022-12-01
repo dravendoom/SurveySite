@@ -9,20 +9,43 @@
     <script src="../scripts/navigation.js" type="application/javascript"></script>
     <script>getAuthStatus();</script>
     <!-- DIV used to present dynamic content -->
-    <h2 id="survey_title">Survey Title</h2>
-    <div id="interactive_survey_div" style="width: 75vw; height: 75vh; background-color: #d5d5d5">
-        <div id="interactive_survey_question_info_div">
-            <div style="font-size: 26px">Do you like pizza?</div>
-            <div style="font-size: 16px">Respond with only one response</div>
-        </div>
-        <div id="multiple_choice_div">
-            <div>
-                <label for="radio1">Yes</label>
-                <input id="radio1" name="question1" type="radio" value="test1"/>
-                <label for="radio2">Maybe</label>
-                <input id="radio2" name="question1" type="radio" value="test1"/>
-                <label for="radio3">No</label>
-                <input id="radio3" name="question1" type="radio" value="test1"/>
+    <h2 id="survey_title" class="text-center mb-2">Survey Title</h2>
+    <div id="interactive_survey_div">
+        <div class="container px-5">
+            <div class="card border-0 shadow rounded-3 overflow-hidden">
+                <div class="card-body p-0">
+                    <div class="row">
+                        <div class="col-lg-5 col-xl-5 py-lg-5">
+                            <div class="p-4 p-md-5">
+                                <div class="h2 fw-bolder">Question ######</div>
+                                <p> Bridgekeeper: What... is your quest?
+                                    King Arthur: To seek the Holy Grail.
+                                    Bridgekeeper: What... is the air-speed velocity of an unladen swallow?
+                                    King Arthur: What do you mean? An African or a European swallow? </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+
+                        </div>
+                        <div class="col-lg-5 ml-lg-4 align-self-center border border-right-0 border-bottom-0 border-top-0" id="multiple_choice_div">
+                            <div class="col">
+                                <div class="h2 fw-bolder border-bottom" style="width: 50%">Multiple Choice:</div>
+                                <div class="row-cols-1">
+                                    <label for="radio1">A: European</label>
+                                </div>
+                                <input id="radio1" name="question1" type="radio" value="test1"/>
+                                <div class="row-cols-1">
+                                    <label for="radio2">B: African</label>
+                                </div>
+                                <input id="radio2" name="question1" type="radio" value="test1"/>
+                                <div class="row-cols-1">
+                                    <label for="radio3">C: I dunno</label>
+                                </div>
+                                <input id="radio3" name="question1" type="radio" value="test1"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="drag_and_drop_div">
@@ -39,11 +62,43 @@
                 </div>
             </div>
         </div>
-        <div id="slider_div">
-            <div>
-                <!-- SLIDER ELEMENTS-->
-                <label for="slider_input"></label>
-                <input id="slider_input" type="range" min="1" max="3"/>
+        <div class="container px-5">
+            <div class="card border-0 shadow rounded-3">
+                <div class="card-body p-0">
+                    <div class="row">
+                        <div class="col-lg-5 col-xl-5 py-lg-5">
+                            <div class="p-4 p-md-5">
+                                <div class="h2 fw-bolder">Question ######</div>
+                                <p> What would you rate your overall mood on an average day? </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+
+                        </div>
+                        <div class="col-lg-5 ml-lg-4 align-self-center border border-right-0 border-bottom-0 border-top-0" id="slider_div">
+                            <div id="">
+                                <div>
+                                    <!-- SLIDER ELEMENTS-->
+                                    <div class="h2 fw-bolder border-bottom" style="width: 50%">Slider :</div>
+                                    <label for="slider_input"></label>
+                                    <input style="width: 85% " id="slider_input" type="range" min="1" max="10"/>
+                                </div>
+                                <div style="width: 85%;" class="row">
+                                    <p style="width: 11%;" class="ms-2">1</p>
+                                    <p style="width: 11%;">2</p>
+                                    <p style="width: 11%;">3</p>
+                                    <p style="width: 10%;">4</p>
+                                    <p style="width: 10%;">5</p>
+                                    <p style="width: 11%;">6</p>
+                                    <p style="width: 11%;">7</p>
+                                    <p style="width: 10%;">8</p>
+                                    <p style="width: 10%;">9</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="carousel_div">
