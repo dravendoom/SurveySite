@@ -35,14 +35,39 @@ io.on("connection", (socket) =>{
    // Checks to see if new account can be created or if existing account can login
    socket.on("verify_credentials", (userCredentials)=>{
       console.log("Got user credentials " + JSON.stringify(userCredentials));
-      if(userCredentials.action === "sign_up"){
+      if(userCredentials.action === "SIGN_UP"){
+         userCredentials.result = surveySiteAuth.checkAccountIsNotTaken(userCredentials);
+         userCredentials.status = "AUTH_SET"
+         userCredentials.uid = "1"
+         userCredentials.password = null;
+
+         socket.emit("verify_credentials_result", userCredentials);
+
          console.log("Sign Up RESULT SENT");
-         socket.emit("verify_credentials_result", surveySiteAuth.checkAccountIsNotTaken(userCredentials));
-      } else if (userCredentials.action === "login"){
+      } else if (userCredentials.action === "LOGIN"){
+         userCredentials.result = surveySiteAuth.checkAccountCanLogin(userCredentials);
+         userCredentials.status = "AUTH_SET"
+         userCredentials.uid = "1"
+         userCredentials.userName = "GET FROMDB";
+         userCredentials.email = "GETFROMDB@gmail.com";
+         userCredentials.organization = "GETFROMDBORG";
+         userCredentials.password = null;
+
+         socket.emit("verify_credentials_result", userCredentials);
+
          console.log("Login RESULT SENT");
-         socket.emit("verify_credentials_result", surveySiteAuth.checkAccountCanLogin(userCredentials));
       }
    });
+
+   socket.on("verify_logout", (userCredentials)=>{
+      if (userCredentials.action === "LOGOUT"){
+         userCredentials.result = surveySiteAuth.checkAccountCanLogout(userCredentials);
+
+         socket.emit("verify_logout_result", userCredentials);
+
+         console.log("Logout RESULT SENT");
+      }
+   })
 
    socket.on("auth_status_request", (userID)=>{
       if(userID === 1){

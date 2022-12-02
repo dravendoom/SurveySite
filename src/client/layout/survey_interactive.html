@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Survey</title>
+    <!-- Socket.io -->
+    <script src="../../../node_modules/socket.io/client-dist/socket.io.js"
+            type="application/javascript"></script>
+    <script src="https://cdn.socket.io/4.5.3/socket.io.min.js"
+            integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi"
+            crossorigin="anonymous"></script>
+    <!-- our scripts -->
+    <script src="../shared/util/client_server_auth_util.js"></script>
+    <script src="../shared/model/user.js"></script>
+    <!-- Client Connection -->
+    <script src="../scripts/client.js" type="application/javascript"></script>
 </head>
 <body>
     <!-- Navigation Bar -->
     <script src="../scripts/navigation.js" type="application/javascript"></script>
-    <script>getAuthStatus();</script>
     <!-- DIV used to present dynamic content -->
     <h2 id="survey_title">Survey Title</h2>
     <div id="interactive_survey_div" style="width: 75vw; height: 75vh; background-color: #d5d5d5">

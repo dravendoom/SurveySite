@@ -2,11 +2,32 @@ function verifyCredentialsWithServer(userCredentialsJson){
     socket.emit("verify_credentials", userCredentialsJson);
 
     socket.on("verify_credentials_result", (message)=>{
-        if (message){
-            console.log("USER AUTHENTICATED AND CREATED");
+        if (message.result){
             window.location.assign("../layout/survey_library.html");
+            storeAuthCookies({
+                status: "AUTH_SET",
+                userName: message.userName,
+                email: message.email,
+                organization: message.organization
+            });
         } else {
             alert("Server rejected the authentication");
+        }
+    });
+}
+
+function verifyLogoutWithServer(userCredentialsJson){
+    console.log("verifying log out")
+    socket.emit("verify_logout", userCredentialsJson);
+
+    socket.on("verify_logout_result", (message)=>{
+        console.log("THE MESSAGE: " + message)
+        if (message.result){
+            console.log("log out verified")
+            removeAuthCookies();
+            window.location.assign("../layout/index.html");
+        } else {
+            alert("Server rejected the logout");
         }
     });
 }

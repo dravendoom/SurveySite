@@ -1,4 +1,4 @@
-Bootstrap5 - HTML and CSS styling.
+Bootstrap5 - HTML and CSS styling/templates.
     > https://getbootstrap.com/
 
 W3 Schools - HTML, CSS, and JS
