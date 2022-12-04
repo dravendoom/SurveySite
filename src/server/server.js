@@ -24,6 +24,10 @@ httpServer.listen(port, hostName, ()=>{
 
 let io = new Server(httpServer, {});
 
+// MOCK DATABASE
+   // Store all created surveys
+let allSurveys = [];
+
 io.on("connection", (socket) =>{
    console.log("Visitor connected to " + socket.id);
    socket.emit("welcome_message", "Welcome to survey site, you have connected to socket: " + socket.id);
@@ -74,5 +78,30 @@ io.on("connection", (socket) =>{
          socket.emit("auth_status_response", "LOGGED_IN");
       }
    })
+
+   // survey processing
+   socket.on("publish_survey", (survey)=>{
+      console.log("Received a survey by "+survey.creatorId+" and pushing it to the database");
+      allSurveys.push(survey);
+      socket.emit("publish_survey_result", true);
+   })
+
+   // survey query service
+   socket.on("query_popular_surveys", (maxSurveyCount)=>{
+      console.log("got query for popular");
+      socket.emit("query_popular_surveys_result", allSurveys);
+   });
+
+   socket.on("query_newest_surveys", (maxSurveyCount)=>{
+      socket.emit("query_newest_surveys_result", allSurveys);
+   });
+
+   socket.on("query_community_surveys", (maxSurveyCount)=>{
+      socket.emit("query_community_surveys_result", allSurveys);
+   });
+
+   socket.on("query_user_surveys", (userId)=>{
+      socket.emit("query_user_surveys_result", allSurveys);
+   });
 
 });

@@ -13,20 +13,22 @@
 
     <!-- our scripts -->
     <script src="../shared/util/client_server_auth_util.js"></script>
-    <script src="../scripts/login_validation.js"></script>
     <script src="../shared/model/user.js"></script>
     <!-- Client Connection -->
     <script src="../scripts/client.js" type="application/javascript"></script>
+    <script src="../shared/util/survey_card.js" type="application/javascript" defer></script>
+
+    <script src="../scripts/survey_library.js" type="application/javascript" defer></script>
 </head>
 <body>
     <!-- Navigation Bar -->
     <script src="../scripts/navigation.js" type="application/javascript"></script>
     <h1>Welcome back, John Doe</h1>
 
-    <div id="survey_library_no_surveys_created_div">
+    <div id="survey_library_no_surveys_created_div" hidden>
         <p>Looks like your survey library is empty. Let's make a survey.</p>
     </div>
-    <div id="survey_library_surveys_created_div">
+    <div id="survey_library_created_surveys_list" hidden>
         <h2>Your surveys</h2>
     </div>
     <button id="create_new_survey_button"><a href="survey_creator.html">Create</a></button>

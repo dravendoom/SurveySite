@@ -10,6 +10,10 @@ function connectToServer(){
     socket.on("welcome_message", (message)=>{
 
     });
+
+    socket.on("disconnect", (reason)=>{
+        console.log("Client disconnect: " + reason);
+    })
 }
 
 function getSocket(){
@@ -28,7 +32,10 @@ function getCookie(key){
     for(let i = 0; i < cookies.length; i++){
         let possibleMatch = cookieRegex.test(cookies[i]);
         if(possibleMatch){
-            return cookies[i].replace(key+"=", "").replace(";","");
+            return cookies[i].replace(key+"=", "")
+                .replace(";","")
+                .trimStart()
+                .trimEnd();
         }
     }
 
@@ -51,15 +58,15 @@ function storeAuthCookies(authJSON){
 
     // returns auth cookie json
 function getAuthCookies(){
-    let uid, status, userName, email, organization;
+    let status, uid, userName, email, organization;
 
-    uid = getCookie("uid");
     status = getCookie("status");
+    uid = getCookie("uid");
     userName = getCookie("userName");
     email = getCookie("email");
     organization = getCookie("organization");
 
-    if(status === null || userName === null || email === null || organization === null){
+    if(status === null || uid === null || userName === null || email === null || organization === null){
         return {
             status: "AUTH_NULL",
         };
@@ -75,10 +82,10 @@ function getAuthCookies(){
 }
     // removes auth cookies (IE: logout)
 function removeAuthCookies(){
-    let uid, status, userName, email, organization;
+    let status, uid, userName, email, organization;
 
-    uid = getCookie("uid");
     status = getCookie("status");
+    uid = getCookie("uid");
     userName = getCookie("userName");
     email = getCookie("email");
     organization = getCookie("organization");

@@ -1,6 +1,8 @@
 let dom = document;
 
 insertBootstrap();
+insertLogoutFeature();
+
 if(getAuthCookies().status === "AUTH_SET") {
     insertUserNavigationBar();
 } else {
@@ -15,6 +17,12 @@ function insertBootstrap(){
     bootstrapLink.crossOrigin = "anonymous";
 
     dom.head.appendChild(bootstrapLink);
+}
+
+function insertLogoutFeature(){
+    let logoutScript = document.createElement("script");
+    logoutScript.src = "../scripts/login_validation.js"
+    dom.head.appendChild(logoutScript);
 }
 
 function insertGuestNavigationBar(){
@@ -74,8 +82,8 @@ function insertUserNavigationBar(){
         "                <a class=\"nav-link\" href=\"survey_library.html\">\n" +
         "                    Library\n" +
         "                </a>\n" +
-        "                <a class=\"nav-link\" href=\"survey_library.html\">\n" +
-        "                    Analytics\n" +
+        "                <a class=\"nav-link\" href=\"account.html\">\n" +
+        "                    Account\n" +
         "                </a>\n" +
         "            </div>\n" +
         "            <div id=\"navbarAccountSectionDiv\" class=\"navbar-nav ms-auto me-1\">\n" +

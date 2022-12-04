@@ -81,21 +81,43 @@ function addSliderQuestionPrompt(){
 // submits questions to server
 function submitQuestions(){
     console.log("submitting questions");
-    let questionsJSON = packQuestions();
-    if(questionsJSON === null){
-        alert("You have no valid questions!");
-    } else {
-        console.log(JSON.stringify(questionsJSON));
-        alert("You have valid questions!")
+    let questionsJSON = packSurvey();
+    if(questionsJSON !== null){
+        socket.emit("publish_survey", questionsJSON);
+        socket.on("publish_survey_result", (isPublished)=>{
+            if(isPublished){
+                alert("Success! Survey " + questionsJSON.title + " published!");
+                window.location.assign("../layout/survey_library.html");
+            } else {
+                alert("Error: Survey " + questionsJSON.title + " was not able to be published. Try submitting again.");
+            }
+        })
     }
 }
 
 // packs questions into JSON object to be sent to server
-function packQuestions(){
+function packSurvey(){
+    let title = document.getElementById("survey_creator_title_input").value;
+    let description = document.getElementById("survey_creator_description_input").value;
+    let imagePath = document.getElementById("survey_creator_image_input").value;
+
+    if(title === "" || title === null){
+        alert("Survey must have a title");
+        return null;
+    } else if(description === "" || description === null) {
+        alert("Survey must have a description");
+        return null;
+    }
+
     // iterate over question id's
     let i = 0;
     // JSON questions ready for server and DB
     let allQuestionsObject = {
+        creatorId: 1,
+        title: title,
+        description: description,
+        hasImage: imagePath!==null,
+        imageId: -1,
         questions: []
     }
 
@@ -123,11 +145,11 @@ function packQuestions(){
     return allQuestionsObject;
 }
 
-function processMultipleChoiceQuestion(mcArray, questionNumber){
+function processMultipleChoiceQuestion(mcArray, questionNumber) {
 
     let question = document.getElementById(mcArray[0]).value;
 
-    if (question === ""){
+    if (question === "") {
         return null;
     }
 
@@ -138,12 +160,12 @@ function processMultipleChoiceQuestion(mcArray, questionNumber){
         answers: []
     }
 
-    for(let i = 1; i < mcArray.length; i++){
+    for (let i = 1; i < mcArray.length; i++) {
         console.log("ID to get" + mcArray[i]);
         console.log("i" + i);
         let responseInput = document.getElementById(mcArray[i]);
         console.log("The value to check for: " + responseInput.value);
-        if(responseInput.value !== "") {
+        if (responseInput.value !== "") {
             console.log("pushed mc response" + responseInput.value)
             mcObject.answers.push(responseInput.value);
         } else {
@@ -173,11 +195,14 @@ function processSliderQuestion(slArray, questionNumber){
 
     min = document.getElementById(slArray[1]).value;
     max = document.getElementById(slArray[2]).value;
+    console.log("min " + min);
+    console.log("max " + max);
 
     if(min === "" || max === ""){
         alert("At least one of your slider questions are missing min and max values")
         return null;
     } else if(min >= max){
+        console.log("min greater than max");
         alert("One of your slider questions has an min greater than or equal to max");
         return null;
     } else {

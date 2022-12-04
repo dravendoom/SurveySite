@@ -52,6 +52,7 @@ function validateInputs(){
         return false;
     }
 
+    removeAuthCookies();
     verifyCredentialsWithServer({
         "action": "SIGN_UP",
         "userName": firstName.value + " " + lastName.value,

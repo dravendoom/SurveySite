@@ -14,6 +14,7 @@ function login(){
         return false;
     }
 
+    removeAuthCookies();
     verifyCredentialsWithServer({
         "action": "LOGIN",
         "email": email.value,
