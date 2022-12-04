@@ -16,10 +16,6 @@ function connectToServer(){
     })
 }
 
-function getSocket(){
-    return socket;
-}
-
 // cookie util functions
 function storeCookie(key, value){
     document.cookie = key+"="+value;

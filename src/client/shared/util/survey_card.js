@@ -1,4 +1,4 @@
-function generateSurveyCard(title, description, dateCreated, creatorName, image){
+function generateSurveyCard(surveyId, title, description, dateCreated, creatorName, image){
     let surveyCard = document.createElement("div");
     surveyCard.classList.add("col");
     surveyCard.classList.add("pb-2");
@@ -13,7 +13,7 @@ function generateSurveyCard(title, description, dateCreated, creatorName, image)
         "                <img class=\"img-fluid img-thumbnail\" src=\""+image+"\"\n" +
         "                     alt=\"pizza\"\n" +
         "                >\n" +
-        "                <button style=\"display: block\">Start</button>";
+        "                <button style=\"display: block\" onclick='openSurvey("+surveyId+")'>Start</button>";
     return surveyCard;
 }
 
@@ -42,4 +42,8 @@ function generateRowDiv(){
     rowDiv.classList.add("ms-2");
     rowDiv.classList.add("me-2");
     return rowDiv;
+}
+
+function openSurvey(surveyId){
+    window.open("../layout/survey_interactive.html?"+surveyId);
 }

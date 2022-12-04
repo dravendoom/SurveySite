@@ -1,9 +1,6 @@
 // question types
 let MULTIPLE_CHOICE = "MULTIPLE_CHOICE";
-let DRAG_AND_DROP = "DRAG_AND_DROP";
 let SLIDER = "SLIDER";
-let CAROUSEL = "CAROUSEL";
-let RANK = "RANK";
 
 let interactiveSurveyDiv = document.getElementById("interactive_survey_div");
 let startTitle = document.createElement("h3");
@@ -59,17 +56,8 @@ function renderQuestion(question){
         case MULTIPLE_CHOICE:
             generateMultipleChoiceQuestion(question);
             break;
-        case DRAG_AND_DROP:
-            generateDragAndDropQuestion(question);
-            break;
         case SLIDER:
             generateSliderQuestion(question);
-            break;
-        case CAROUSEL:
-            generateCarouselQuestion(question);
-            break;
-        case RANK:
-            generateRankQuestion(question);
             break;
     }
 }
@@ -78,19 +66,7 @@ function generateMultipleChoiceQuestion(question){
 
 }
 
-function generateDragAndDropQuestion(question){
-
-}
-
 function generateSliderQuestion(question){
-
-}
-
-function generateCarouselQuestion(question){
-
-}
-
-function generateRankQuestion(question){
 
 }
 

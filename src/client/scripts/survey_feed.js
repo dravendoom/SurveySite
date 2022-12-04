@@ -49,10 +49,11 @@ function populatePopularSurveys(popularSurveys){
 
     for(let i = 0; i < popularSurveys.length; i++) {
         rowDiv.appendChild(
-            generateSurveyCard("Do you like pizza?",
-                "A survey to find who likes pizza",
-                "08/23/2022",
-                "1x1x1x1",
+            generateSurveyCard(i,
+                popularSurveys[i].title,
+                popularSurveys[i].description,
+                popularSurveys[i].dateCreated,
+                popularSurveys[i].creatorId,
                 "https://hips.hearstapps.com/hmg-prod/images/dominos-1586183311.jpg")
         );
     }
@@ -67,10 +68,11 @@ function populateNewestSurveys(newestSurveys){
 
     for(let i = 0; i < newestSurveys.length; i++) {
         rowDiv.appendChild(
-            generateSurveyCard("Do you like pizza?",
-                "A survey to find who likes pizza",
-                "08/23/2022",
-                "1x1x1x1",
+            generateSurveyCard(i,
+                popularSurveys[i].title,
+                popularSurveys[i].description,
+                popularSurveys[i].dateCreated,
+                popularSurveys[i].creatorId,
                 "https://hips.hearstapps.com/hmg-prod/images/dominos-1586183311.jpg")
         );
     }
@@ -85,10 +87,11 @@ function populateCommunitySurveys(communitySurveys){
 
     for(let i = 0; i < communitySurveys.length; i++) {
         rowDiv.appendChild(
-            generateSurveyCard("Do you like pizza?",
-                "A survey to find who likes pizza",
-                "08/23/2022",
-                "1x1x1x1",
+            generateSurveyCard(i,
+                popularSurveys[i].title,
+                popularSurveys[i].description,
+                popularSurveys[i].dateCreated,
+                popularSurveys[i].creatorId,
                 "https://hips.hearstapps.com/hmg-prod/images/dominos-1586183311.jpg")
         );
     }

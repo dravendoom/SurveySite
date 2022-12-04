@@ -116,6 +116,7 @@ function packSurvey(){
         creatorId: 1,
         title: title,
         description: description,
+        dateCreated: Date.now(),
         hasImage: imagePath!==null,
         imageId: -1,
         questions: []
