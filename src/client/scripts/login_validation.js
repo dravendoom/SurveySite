@@ -2,7 +2,6 @@ let email = document.getElementById("login_email_input");
 let password = document.getElementById("login_password_input");
 
 function login(){
-    console.log("Testy man")
     // check if any input is empty
     if(isEmpty(email.value) || isEmpty(password.value)){
         alert("One or more fields are empty!");
@@ -15,11 +14,18 @@ function login(){
         return false;
     }
 
+    removeAuthCookies();
     verifyCredentialsWithServer({
-        "action": "login",
+        "action": "LOGIN",
         "email": email.value,
         "password": password.value
     });
+}
+
+function logout(){
+    console.log("log out")
+    let user = new User(getAuthCookies().uid, getAuthCookies().userName, getAuthCookies().email, null, null);
+    verifyLogoutWithServer(user.toActionJson("LOGOUT"));
 }
 
 function clearInputs(){

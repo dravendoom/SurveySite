@@ -3,17 +3,16 @@ let firstName, lastName, birthDate, organization, email, password, confirmPasswo
 firstName = document.getElementById("first_name_input");
 lastName = document.getElementById("last_name_input");
 birthDate= document.getElementById("birthdate_input");
-organization = document.getElementById("organization_input");
+organization = document.getElementById("org_name_input");
 email = document.getElementById("email_input");
 password = document.getElementById("password_input");
-confirmPassword = document.getElementById("confirm_password_input");
+confirmPassword = document.getElementById("password_confirm_input");
 
 /*
 Does a basic minimum criteria check of inputted credentials and then asks server
 if credentials are okay to proceed creating an account with verifyCredentialsWithServer()
  */
 function validateInputs(){
-
     console.log(firstName.value +
         lastName.value +
         birthDate.value +
@@ -53,10 +52,10 @@ function validateInputs(){
         return false;
     }
 
+    removeAuthCookies();
     verifyCredentialsWithServer({
-        "action": "sign_up",
-        "firstName": firstName.value,
-        "lastName": lastName.value,
+        "action": "SIGN_UP",
+        "userName": firstName.value + " " + lastName.value,
         "birthDate": birthDate.value,
         "organization": organization.value,
         "email": email.value,

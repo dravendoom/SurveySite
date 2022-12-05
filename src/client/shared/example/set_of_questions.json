@@ -1,4 +1,9 @@
 {
+  "creatorId": 1,
+  "title": "best survey ever",
+  "description": "description for best survey ever",
+  "hasImage": true,
+  "imageId": 765,
   "questions": [
     {
       "id": "0",

@@ -3,64 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Survey</title>
+    <!-- Socket.io -->
+    <script src="../../../node_modules/socket.io/client-dist/socket.io.js"
+            type="application/javascript"></script>
+    <script src="https://cdn.socket.io/4.5.3/socket.io.min.js"
+            integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi"
+            crossorigin="anonymous"></script>
+    <!-- our scripts -->
+    <script src="../shared/util/client_server_auth_util.js"></script>
+    <script src="../shared/model/user.js"></script>
+    <!-- Client Connection -->
+    <script src="../scripts/client.js" type="application/javascript"></script>
+    <script src="../scripts/survey_interactive.js" type="application/javascript" defer></script>
 </head>
 <body>
     <!-- Navigation Bar -->
     <script src="../scripts/navigation.js" type="application/javascript"></script>
-    <script>getAuthStatus();</script>
     <!-- DIV used to present dynamic content -->
-    <h2 id="survey_title">Survey Title</h2>
-    <div id="interactive_survey_div" style="width: 75vw; height: 75vh; background-color: #d5d5d5">
-        <div id="interactive_survey_question_info_div">
-            <div style="font-size: 26px">Do you like pizza?</div>
-            <div style="font-size: 16px">Respond with only one response</div>
+    <h1 id="survey_interactive_survey_title">Survey Title</h1>
+    <div id="survey_interactive_div" style="width: 75vw; height: 75vh; background-color: #d5d5d5">
+        <div id="survey_interactive_start_survey_div">
+            <h3>Ready to start the survey?</h3>
+            <button id="survey_interactive_start_survey_button" onclick="start()">
+                Start
+            </button>
         </div>
-        <div id="multiple_choice_div">
-            <div>
-                <label for="radio1">Yes</label>
-                <input id="radio1" name="question1" type="radio" value="test1"/>
-                <label for="radio2">Maybe</label>
-                <input id="radio2" name="question1" type="radio" value="test1"/>
-                <label for="radio3">No</label>
-                <input id="radio3" name="question1" type="radio" value="test1"/>
-            </div>
+        <div id="survey_interactive_question_info_div">
+            <div id="survey_interactive_question" style="font-size: 26px" hidden>Do you like pizza?</div>
+            <div style="font-size: 16px" hidden>Respond with only one response</div>
         </div>
-        <div id="drag_and_drop_div">
-            <div>
-                <!-- DRAG AND DROP ELEMENTS-->
-                <div id="drag_and_drop_possible_answers_div">
-                    Possible Answers
-                    <div style="max-width: 50px; min-height: 30px; background-color: darkgreen">Yes</div>
-                    <div style="max-width: 50px; min-height: 30px; background-color: yellow">Maybe</div>
-                    <div style="max-width: 50px; min-height: 30px; background-color: darkred">No</div>
-                </div>
-                <div id="drag_and_drop_selected_answers_div" style="min-height: 100px; min-width: 100px">
-                    Drag Into Here
-                </div>
-            </div>
+        <div id="survey_interactive_multiple_choice_div" hidden>
+            <label for="survey_interactive_radio1">Yes</label>
+            <input id="survey_interactive_radio1" name="question1" type="radio" value="test1"/>
+            <label for="survey_interactive_radio2">Maybe</label>
+            <input id="survey_interactive_radio2" name="question1" type="radio" value="test1"/>
+            <label for="survey_interactive_radio3">No</label>
+            <input id="survey_interactive_radio3" name="question1" type="radio" value="test1"/>
         </div>
-        <div id="slider_div">
-            <div>
+        <div id="survey_interactive_slider_div" hidden>
                 <!-- SLIDER ELEMENTS-->
-                <label for="slider_input"></label>
-                <input id="slider_input" type="range" min="1" max="3"/>
-            </div>
+            <h4 id="survey_interactive_slider_input_value">SL Value</h4>
+            <label for="survey_interactive_slider_input"></label>
+            <input id="survey_interactive_slider_input" type="range" min="1" max="3" oninput="updateSliderTextValue()"/>
         </div>
-        <div id="carousel_div">
-            <div>
-                <!-- CAROUSEL ELEMENTS-->
-            </div>
-        </div>
-        <div id="rank_div">
-            <div>
-                <!-- RANK ELEMENTS-->
-            </div>
-        </div>
-        <div id="interactive_survey_button_div" style="width: 100%;">
-            <button id="interactive_survey_prev_question_button">
+        <div id="survey_interactive_button_div" style="width: 100%;">
+            <button id="survey_interactive_prev_question_button" onclick="presentPrevQuestion()">
                 Prev
             </button>
-            <button id="interactive_survey_next_question_button">
+            <button id="survey_interactive_next_question_button" onclick="presentNextQuestion()">
                 Next
             </button>
         </div>
