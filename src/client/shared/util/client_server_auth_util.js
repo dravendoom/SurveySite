@@ -5,8 +5,10 @@ function verifyCredentialsWithServer(userCredentialsJson){
         if (message.result){
             window.location.assign("../layout/survey_library.html");
             storeAuthCookies({
-                status: "AUTH_SET",
+                status: message.result,
+                uid: message.uid,
                 userName: message.userName,
+                birthDate: message.birthDate,
                 email: message.email,
                 organization: message.organization
             });

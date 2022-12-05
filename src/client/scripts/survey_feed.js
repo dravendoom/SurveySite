@@ -47,13 +47,13 @@ function populatePopularSurveys(popularSurveys){
     let popularSurveysParentDiv = document.getElementById("survey_feed_popular_list");
     let rowDiv = generateRowDiv();
 
-    for(let i = 0; i < popularSurveys.length; i++) {
+    for(let surveyId in popularSurveys) {
         rowDiv.appendChild(
-            generateSurveyCard(i,
-                popularSurveys[i].title,
-                popularSurveys[i].description,
-                popularSurveys[i].dateCreated,
-                popularSurveys[i].creatorId,
+            generateSurveyCard(surveyId,
+                popularSurveys[surveyId].title,
+                popularSurveys[surveyId].description,
+                popularSurveys[surveyId].dateCreated,
+                popularSurveys[surveyId].creatorId,
                 "https://hips.hearstapps.com/hmg-prod/images/dominos-1586183311.jpg")
         );
     }
@@ -66,13 +66,13 @@ function populateNewestSurveys(newestSurveys){
     let newestSurveysParentDiv = document.getElementById("survey_feed_new_list");
     let rowDiv = generateRowDiv();
 
-    for(let i = 0; i < newestSurveys.length; i++) {
+    for(let surveyId in newestSurveys) {
         rowDiv.appendChild(
-            generateSurveyCard(i,
-                popularSurveys[i].title,
-                popularSurveys[i].description,
-                popularSurveys[i].dateCreated,
-                popularSurveys[i].creatorId,
+            generateSurveyCard(surveyId,
+                popularSurveys[surveyId].title,
+                popularSurveys[surveyId].description,
+                popularSurveys[surveyId].dateCreated,
+                popularSurveys[surveyId].creatorId,
                 "https://hips.hearstapps.com/hmg-prod/images/dominos-1586183311.jpg")
         );
     }
@@ -85,13 +85,13 @@ function populateCommunitySurveys(communitySurveys){
     let communitySurveysParentDiv = document.getElementById("survey_feed_community_list");
     let rowDiv = generateRowDiv();
 
-    for(let i = 0; i < communitySurveys.length; i++) {
+    for(let surveyId in communitySurveys) {
         rowDiv.appendChild(
-            generateSurveyCard(i,
-                popularSurveys[i].title,
-                popularSurveys[i].description,
-                popularSurveys[i].dateCreated,
-                popularSurveys[i].creatorId,
+            generateSurveyCard(surveyId,
+                popularSurveys[surveyId].title,
+                popularSurveys[surveyId].description,
+                popularSurveys[surveyId].dateCreated,
+                popularSurveys[surveyId].creatorId,
                 "https://hips.hearstapps.com/hmg-prod/images/dominos-1586183311.jpg")
         );
     }

@@ -113,7 +113,7 @@ function packSurvey(){
     let i = 0;
     // JSON questions ready for server and DB
     let allQuestionsObject = {
-        creatorId: 1,
+        creatorId: getAuthCookies().uid,
         title: title,
         description: description,
         dateCreated: Date.now(),

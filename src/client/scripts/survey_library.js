@@ -14,11 +14,13 @@ function populateUserSurveys(){
             return null;
         } else {
             userSurveysDiv.hidden = false;
-            for (let i = 0; i < surveys.length; i++) {
-                rowDiv.appendChild(generateCreatorSurveyCard("Do you like pizza?",
-                    "A survey to find who likes pizza",
-                    "08/23/2022",
-                    "1x1x1x1",
+            for (let surveyId in surveys) {
+                rowDiv.appendChild(generateCreatorSurveyCard(
+                    surveyId,
+                    surveys[surveyId].title,
+                    surveys[surveyId].description,
+                    surveys[surveyId].dateCreated,
+                    getAuthCookies().userName,
                     "https://hips.hearstapps.com/hmg-prod/images/dominos-1586183311.jpg")
                 )
             }
