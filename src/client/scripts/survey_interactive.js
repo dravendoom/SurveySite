@@ -1,25 +1,14 @@
 let hasStarted = false;
+let currentQuestion;
 
 // question types
 let MULTIPLE_CHOICE = "MULTIPLE_CHOICE";
 let SLIDER = "SLIDER";
 
 let survey;
-let questions = [
-    ["MULTIPLE_CHOICE", "Do you like pizza?", "Yes", "No", "Maybe"],
-    ["SLIDER", "How much", 0, 100],
-    ["MULTIPLE_CHOICE", "Do you like pizza?", "Yes", "No", "Maybe"],
-    ["MULTIPLE_CHOICE", "Do you like pizza?", "Yes", "No", "Maybe"],
-    ["SLIDER", "When do you want it?", 0, 200]
-];
+let questions = [];
+let chosenMcId = [];
 let responses = [];
-let exampleResponses = [
-    "Yes",
-    0,
-    "No",
-    "No",
-    100
-];
 
 let currentQuestionPosition = -1;
 
@@ -33,6 +22,8 @@ let sliderDiv = document.getElementById("survey_interactive_slider_div");
 let sliderInputTool = document.getElementById("survey_interactive_slider_input");
 let sliderValue = document.getElementById("survey_interactive_slider_input_value");
 
+let submitButton = document.getElementById("survey_interactive_submit_button");
+
 loadInteractiveSurvey();
 
 // pull survey from server using the surveyId
@@ -43,11 +34,31 @@ function loadInteractiveSurvey() {
     socket.on("query_survey_result", (survey)=>{
         if(survey !== null){
             this.survey = survey;
+            parseOutSurveyIntoArray();
             return true;
         } else {
+            alert("Error fetching survey! Try again later")
             return false;
         }
     })
+}
+
+function parseOutSurveyIntoArray(){
+    for(let i = 0; i < this.survey.questions.length; i++){
+        let subArray = [];
+        subArray.push(this.survey.questions[i].type);
+        subArray.push(this.survey.questions[i].question);
+        if(this.survey.questions[i].type === "MULTIPLE_CHOICE"){
+            for(let answer of this.survey.questions[i].answers){
+                subArray.push(answer);
+            }
+        } else if (this.survey.questions[i].type === "SLIDER") {
+            for(let answer of this.survey.questions[i].answers){
+                subArray.push(answer);
+            }
+        }
+        questions.push(subArray);
+    }
 }
 
 function start(){
@@ -63,6 +74,7 @@ function presentNextQuestion(){
     if(currentQuestionPosition < questions.length-1) currentQuestionPosition++;
     renderQuestion(questions[currentQuestionPosition]);
     hasStarted = true;
+    if(currentQuestionPosition === questions.length-1) presentSubmitButton();
 }
 
 function presentPrevQuestion(){
@@ -74,9 +86,11 @@ function presentPrevQuestion(){
 function renderQuestion(question){
     switch(question[0]){
         case MULTIPLE_CHOICE:
+            currentQuestion = MULTIPLE_CHOICE;
             showMultipleChoiceQuestion(question);
             break;
         case SLIDER:
+            currentQuestion = SLIDER;
             showSliderQuestion(question);
             break;
     }
@@ -95,8 +109,14 @@ function showMultipleChoiceQuestion(question){
     for(let i = 2; i < question.length; i++){
         let answer = question[i];
         let answersDiv = document.createElement("div");
-        answersDiv.innerHTML = "<label for=\"survey_interactive_radio"+i+"\">"+answer+"</label>\n" +
-            "            <input id=\"survey_interactive_radio"+i+"\"name=\"question"+i+"\" type=\"radio\" value=\""+answer+"\"/>"
+        let id = "survey_interactive_radio"+i;
+
+        let checkedString = (responses[currentQuestionPosition] !== null && id === chosenMcId[currentQuestionPosition]) ? "checked" : null;
+
+        answersDiv.innerHTML = "<label for=\""+id+"\">"+answer+"</label>\n" +
+            "            <input id=\""+id+"\" name=\"question"+currentQuestionPosition+"\" type=\"radio\" value=\""+answer+"\"" +
+            "            oninput='storeResponse(id)' "+checkedString+"/>";
+
         multipleChoiceDiv.appendChild(answersDiv);
     }
 }
@@ -112,24 +132,64 @@ function showSliderQuestion(question){
     sliderInputTool.min = min;
     sliderInputTool.max = max;
     let avg = Math.floor((Number.parseInt(max)+Number.parseInt(min))/2).toString()
-    sliderValue.innerText = avg;
-    sliderInputTool.value = avg;
 
+    let setVal = responses[currentQuestionPosition] !== undefined ? responses[currentQuestionPosition] : avg;
+
+    sliderValue.innerText = setVal;
+    sliderInputTool.value = setVal;
     questionTitle.innerText = questionText;
 }
 
-function storeMultipleChoiceResponse(){
-    responses.push();
+function storeResponse(mcId){
+    let value = document.getElementById(mcId).value;
+    chosenMcId[currentQuestionPosition] = mcId;
+    responses[currentQuestionPosition] = value;
+    console.log("Got MC response: " + responses[currentQuestionPosition]);
 }
 
-function storeSliderResponse(){
-    responses.push();
-}
-
-function updateSliderTextValue(){
+function updateSliderResponse(){
     sliderValue.innerText = sliderInputTool.value;
+    responses[currentQuestionPosition] = sliderInputTool.value;
+    console.log("Got Slider response: " + responses[currentQuestionPosition]);
 }
 
 function clearCurrentMultipleChoiceAnswersElements(){
     multipleChoiceDiv.innerHTML = "";
 }
+
+function presentSubmitButton(){
+    submitButton.hidden = false;
+}
+
+function submitResponse() {
+    if (responses.length > 0) {
+        let currentDateInMillis = Date.now();
+        let responseJSON = {
+            id: currentDateInMillis,
+            uid: getAuthCookies().uid,
+            date: currentDateInMillis,
+            responses: []
+        }
+
+        for(let i = 0; i < responses.length; i++){
+            responseJSON.responses.push({
+                id: i,
+                type: questions[i][0],
+                response: responses[i] === "undefined" || responses[i] === null ? null : responses[i]
+            });
+        }
+
+        socket.emit("survey_response_submission", responseJSON);
+        socket.on("survey_response_submission_result", (result)=>{
+            if(result){
+                alert("Thank you for taking this survey!");
+                window.close();
+            } else {
+                alert("Oops something went wrong! Please resubmit the survey")
+            }
+        })
+    } else {
+        alert("You must respond to at least one question to submit this survey!")
+    }
+}
+

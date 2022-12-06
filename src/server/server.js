@@ -37,28 +37,14 @@ let database = {
          "password":"InitialD86"
       }
    },
-   surveys: {
+   surveys: [
+   ],
+   surveysJson: {
 
    },
-   surveysJson: {
-      1670272531163: {
-         "creatorId": "1670272475268",
-         "title": "fake survey",
-         "description": "faker",
-         "dateCreated": 1670272531160,
-         "hasImage": true,
-         "imageId": -1,
-         "questions":
-             [
-                {
-                   "id": 0,
-                   "question": "test",
-                   "type": "MULTIPLE_CHOICE",
-                   "answers": ["y", "n"]
-                }
-             ]
-      }
-   },
+   responses: [
+
+   ],
    responsesJson:{
 
    }
@@ -76,7 +62,7 @@ io.on("connection", (socket) =>{
    socket.on("verify_credentials", (userCredentials)=>{
       console.log("Got user credentials " + JSON.stringify(userCredentials));
       if(userCredentials.action === "SIGN_UP"){
-         if(canCreateUser(userCredentials.email, userCredentials.password)) {
+         if(canCreateUser(userCredentials.email)) {
             let newUid = Date.now();
             userCredentials.result = true;
             userCredentials.status = "AUTH_SET";
@@ -86,6 +72,7 @@ io.on("connection", (socket) =>{
          } else {
             userCredentials = {
                result: false,
+               reason: "Email Already In Use",
                status: "AUTH_NULL"
             }
          }
@@ -107,6 +94,7 @@ io.on("connection", (socket) =>{
          } else {
             userCredentials = {
                result: false,
+               reason: "Email and/or Password Combination Incorrect",
                status: "AUTH_NULL"
             };
          }
@@ -148,19 +136,24 @@ io.on("connection", (socket) =>{
 
    socket.on("query_popular_surveys", (maxSurveyCount)=>{
       console.log("got query for popular");
-      socket.emit("query_popular_surveys_result", database.surveys);
+      socket.emit("query_popular_surveys_result", database.surveysJson);
    });
 
    socket.on("query_newest_surveys", (maxSurveyCount)=>{
-      socket.emit("query_newest_surveys_result", database.surveys);
+      socket.emit("query_newest_surveys_result", database.surveysJson);
    });
 
    socket.on("query_community_surveys", (maxSurveyCount)=>{
-      socket.emit("query_community_surveys_result", database.surveys);
+      socket.emit("query_community_surveys_result", database.surveysJson);
    });
 
    socket.on("query_user_surveys", (userId)=>{
-      socket.emit("query_user_surveys_result", database.surveys);
+      socket.emit("query_user_surveys_result", database.surveysJson);
+   });
+
+   socket.on("survey_response_submission", (response)=>{
+      addResponseToDatabase(response);
+      socket.emit("survey_response_submission_result", true);
    });
 
 });
@@ -178,9 +171,9 @@ function canValidateAccount(email, password){
    return null;
 }
 
-function canCreateUser(email, username){
+function canCreateUser(email){
    for(let user in database.users){
-      if(user.email === email && user.userName === username){
+      if(database.users[user].email === email){
          return false;
       }
    }
@@ -204,15 +197,20 @@ function addUserToDatabase(user){
 
 function addSurveyToDatabase(survey){
    let newSurveyId = Date.now();
-   database.surveys[newSurveyId] = survey;
+   database.surveys.push(newSurveyId);
+   database.surveysJson[newSurveyId] = survey;
    printDatabase();
 }
 
 function getSurveyFromDatabase(inputtedSurveyId){
-   for(let surveyId in database.surveys){
-      if(surveyId === inputtedSurveyId){
-         return database.surveys[surveyId];
+   for(let surveyId of database.surveys){
+      console.log(inputtedSurveyId);
+      console.log(surveyId);
+      if(surveyId == inputtedSurveyId){
+         console.log("Got survey");
+         return database.surveysJson[surveyId];
       }
+      console.log("have not found survey")
    }
    return null;
 }
@@ -225,6 +223,12 @@ function getUserFromDatabase(uid){
    }
 
    return null;
+}
+
+function addResponseToDatabase(response){
+   database.responses.push(response.id);
+   database.responsesJson[response.id] = response;
+   printDatabase();
 }
 
 function printDatabase(){

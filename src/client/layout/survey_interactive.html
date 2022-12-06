@@ -44,7 +44,7 @@
                 <!-- SLIDER ELEMENTS-->
             <h4 id="survey_interactive_slider_input_value">SL Value</h4>
             <label for="survey_interactive_slider_input"></label>
-            <input id="survey_interactive_slider_input" type="range" min="1" max="3" oninput="updateSliderTextValue()"/>
+            <input id="survey_interactive_slider_input" type="range" min="1" max="3" oninput="updateSliderResponse()"/>
         </div>
         <div id="survey_interactive_button_div" style="width: 100%;">
             <button id="survey_interactive_prev_question_button" onclick="presentPrevQuestion()">
@@ -55,5 +55,8 @@
             </button>
         </div>
     </div>
+    <button id="survey_interactive_submit_button" onclick="submitResponse()" hidden>
+        Submit
+    </button>
 </body>
 </html>
