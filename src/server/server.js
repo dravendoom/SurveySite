@@ -40,11 +40,24 @@ let database = {
    surveys: {
 
    },
-   surveysJson:{
-
-   },
-   responses:{
-
+   surveysJson: {
+      1670272531163: {
+         "creatorId": "1670272475268",
+         "title": "fake survey",
+         "description": "faker",
+         "dateCreated": 1670272531160,
+         "hasImage": true,
+         "imageId": -1,
+         "questions":
+             [
+                {
+                   "id": 0,
+                   "question": "test",
+                   "type": "MULTIPLE_CHOICE",
+                   "answers": ["y", "n"]
+                }
+             ]
+      }
    },
    responsesJson:{
 
@@ -198,7 +211,7 @@ function addSurveyToDatabase(survey){
 function getSurveyFromDatabase(inputtedSurveyId){
    for(let surveyId in database.surveys){
       if(surveyId === inputtedSurveyId){
-         return surveyId.users[surveyId];
+         return database.surveys[surveyId];
       }
    }
    return null;

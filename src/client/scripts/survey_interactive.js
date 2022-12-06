@@ -1,3 +1,5 @@
+let hasStarted = false;
+
 // question types
 let MULTIPLE_CHOICE = "MULTIPLE_CHOICE";
 let SLIDER = "SLIDER";
@@ -51,6 +53,7 @@ function loadInteractiveSurvey() {
 function start(){
     startDiv.hidden = true;
     questionTitle.hidden = false;
+
     // starts from -1 and goes to array position 0 (first question)
     presentNextQuestion();
 }
@@ -59,6 +62,7 @@ function start(){
 function presentNextQuestion(){
     if(currentQuestionPosition < questions.length-1) currentQuestionPosition++;
     renderQuestion(questions[currentQuestionPosition]);
+    hasStarted = true;
 }
 
 function presentPrevQuestion(){
@@ -112,6 +116,14 @@ function showSliderQuestion(question){
     sliderInputTool.value = avg;
 
     questionTitle.innerText = questionText;
+}
+
+function storeMultipleChoiceResponse(){
+    responses.push();
+}
+
+function storeSliderResponse(){
+    responses.push();
 }
 
 function updateSliderTextValue(){
