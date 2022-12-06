@@ -1,9 +1,13 @@
+let userWelcomeHeader = document.getElementById("survey_library_welcome_header");
+
 let userSurveysDiv = document.getElementById("survey_library_created_surveys_list");
 let noSurveysCreatedDiv = document.getElementById("survey_library_no_surveys_created_div");
 
 populateUserSurveys();
 
 function populateUserSurveys(){
+    userWelcomeHeader.innerText = "Hello, " + getAuthCookies().userName;
+
     let rowDiv = generateRowDiv();
 
     socket.emit("query_user_surveys", getAuthCookies().uid);

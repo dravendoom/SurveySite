@@ -13,7 +13,7 @@ function verifyCredentialsWithServer(userCredentialsJson){
                 organization: message.organization
             });
         } else {
-            alert("Server rejected the authentication");
+            alert(message.reason);
         }
     });
 }
@@ -29,7 +29,7 @@ function verifyLogoutWithServer(userCredentialsJson){
             removeAuthCookies();
             window.location.assign("../layout/index.html");
         } else {
-            alert("Server rejected the logout");
+            alert(message.reason);
         }
     });
 }
