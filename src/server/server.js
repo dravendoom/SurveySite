@@ -38,6 +38,7 @@ let database = {
       }
    },
    surveys: [
+
    ],
    surveysJson: {
 
@@ -134,26 +135,20 @@ io.on("connection", (socket) =>{
       socket.emit("query_survey_result", getSurveyFromDatabase(surveyId));
    });
 
-   socket.on("query_popular_surveys", (maxSurveyCount)=>{
-      console.log("got query for popular");
-      socket.emit("query_popular_surveys_result", database.surveysJson);
-   });
-
-   socket.on("query_newest_surveys", (maxSurveyCount)=>{
-      socket.emit("query_newest_surveys_result", database.surveysJson);
-   });
-
    socket.on("query_community_surveys", (maxSurveyCount)=>{
       socket.emit("query_community_surveys_result", database.surveysJson);
    });
 
    socket.on("query_user_surveys", (userId)=>{
-      socket.emit("query_user_surveys_result", database.surveysJson);
+      socket.emit("query_user_surveys_result", getSurveysByUser(userId));
    });
 
    socket.on("survey_response_submission", (response)=>{
       addResponseToDatabase(response);
       socket.emit("survey_response_submission_result", true);
+   });
+   socket.on("query_survey_analytics", (surveyId)=>{
+      socket.emit("query_survey_analytics_result", getAnalyticsForSurvey(surveyId));
    });
 
 });
@@ -215,6 +210,19 @@ function getSurveyFromDatabase(inputtedSurveyId){
    return null;
 }
 
+function getSurveysByUser(uid){
+   let allUserSurveys = {}
+   for(let surveyId of database.surveys){
+      console.log(surveyId);
+      if(database.surveysJson[surveyId].creatorId == uid){
+         allUserSurveys[surveyId] = database.surveysJson[surveyId];
+         console.log("Got survey from user");
+      }
+      console.log("have not found survey")
+   }
+   return allUserSurveys;
+}
+
 function getUserFromDatabase(uid){
    for(let userId in database.users){
       if(userId === uid){
@@ -233,4 +241,80 @@ function addResponseToDatabase(response){
 
 function printDatabase(){
    console.log(JSON.stringify(database));
+}
+
+function getNumberOfRespondents(surveyId){
+   let count = 0;
+   for(let responseId in database.responsesJson){
+      if(responseId.includes(surveyId)){
+         console.log(responseId);
+         count++;
+         console.log(count);
+      }
+   }
+   return count;
+}
+
+function getResponsesForSurvey(surveyId){
+   let responses = {};
+   for(let responseId in database.responsesJson){
+      if(responseId.includes(surveyId)) {
+         responses[responseId] = database.responsesJson[responseId];
+      }
+   }
+   return responses;
+}
+
+function getQuestionAnalytics(surveyId){
+   let survey = getSurveyFromDatabase(surveyId);
+   let responses = getResponsesForSurvey(surveyId);
+
+   let questionAnalyticsArray = [];
+
+   let i = 0;
+   for(let aQuestion of survey.questions){
+      let specificQuestionAnalyticArray = [];
+
+      for(let answer of aQuestion.answers){
+         specificQuestionAnalyticArray.push([answer, 0]);
+      }
+
+      for(let individualResponse in responses) {
+         let responseToCheck = responses[individualResponse].responses[i].response;
+         if (responseToCheck !== "" || responseToCheck !== null) {
+            let p = 0;
+            for (let array of specificQuestionAnalyticArray) {
+               console.log("comparing " + array[0] + " to " + responseToCheck);
+               if (array[0] === responseToCheck) {
+                  console.log("SUCCESS THIS " + array[0] + " IS " + responseToCheck);
+                  specificQuestionAnalyticArray[p][1]++;
+               }
+               p++;
+            }
+         }
+      }
+      questionAnalyticsArray.push({
+         "type": aQuestion.type,
+         "question": aQuestion.question,
+         "data": specificQuestionAnalyticArray
+      });
+      i++;
+   }
+
+   return questionAnalyticsArray;
+}
+
+function getAnalyticsForSurvey(surveyId){
+   let questionAnalytics = getQuestionAnalytics(surveyId);
+
+   return {
+      "result": true,
+      "title": database.surveysJson[surveyId].title,
+      "numberOfQuestions": database.surveysJson[surveyId].questions.length,
+      "analytics":{
+         "dateCreated": database.surveysJson[surveyId].dateCreated,
+         "respondents": getNumberOfRespondents(surveyId),
+         "questionAnalytics": questionAnalytics
+      }
+   };
 }

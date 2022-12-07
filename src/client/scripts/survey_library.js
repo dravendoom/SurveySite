@@ -13,11 +13,15 @@ function populateUserSurveys(){
     socket.emit("query_user_surveys", getAuthCookies().uid);
 
     socket.on("query_user_surveys_result", (surveys)=>{
-        if(surveys.length === 0){
+        console.log(JSON.stringify(surveys));
+        if(JSON.stringify(surveys) === "{}"){
+            console.log("no surveys");
+            userSurveysDiv.hidden = true;
             noSurveysCreatedDiv.hidden = false;
             return null;
         } else {
             userSurveysDiv.hidden = false;
+            noSurveysCreatedDiv.hidden = true;
             for (let surveyId in surveys) {
                 rowDiv.appendChild(generateCreatorSurveyCard(
                     surveyId,

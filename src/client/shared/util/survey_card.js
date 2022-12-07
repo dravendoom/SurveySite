@@ -32,7 +32,7 @@ function generateCreatorSurveyCard(id, title, description, dateCreated, creatorN
         "                <img class=\"img-fluid img-thumbnail\" src=\""+image+"\"\n" +
         "                     alt=\"pizza\"\n" +
         "                >\n" +
-        "                <button style=\"display: block; background-color: #0dcaf0; color: #1a1a1a\">Analytics</button>";
+        "                <button style=\"display: block; background-color: #0dcaf0; color: #1a1a1a\" onclick='openAnalytics("+id+")'>Analytics</button>";
     return creatorSurveyCard;
 }
 
@@ -42,6 +42,11 @@ function generateRowDiv(){
     rowDiv.classList.add("ms-2");
     rowDiv.classList.add("me-2");
     return rowDiv;
+}
+
+function openAnalytics(surveyId){
+    console.log(surveyId);
+    window.open("../layout/survey_analytics.html?"+surveyId);
 }
 
 function openSurvey(surveyId){

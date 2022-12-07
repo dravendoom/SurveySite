@@ -82,9 +82,6 @@ function insertUserNavigationBar(){
         "                <a class=\"nav-link\" href=\"survey_library.html\">\n" +
         "                    Library\n" +
         "                </a>\n" +
-        "                <a class=\"nav-link\" href=\"account.html\">\n" +
-        "                    Account\n" +
-        "                </a>\n" +
         "            </div>\n" +
         "            <div id=\"navbarAccountSectionDiv\" class=\"navbar-nav ms-auto me-1\">\n" +
         "                <a class=\"nav-link\" href=\"login.html\">\n" +

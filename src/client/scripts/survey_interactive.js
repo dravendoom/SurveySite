@@ -24,12 +24,15 @@ let sliderValue = document.getElementById("survey_interactive_slider_input_value
 
 let submitButton = document.getElementById("survey_interactive_submit_button");
 
+let pageSurveyId;
+
 loadInteractiveSurvey();
 
 // pull survey from server using the surveyId
 function loadInteractiveSurvey() {
     let surveyIdRegex = RegExp("\\?.*");
     let surveyId = surveyIdRegex.exec(window.location.href)[0].replace("?","");
+    pageSurveyId = surveyId;
     socket.emit("query_survey", surveyId);
     socket.on("query_survey_result", (survey)=>{
         if(survey !== null){
@@ -164,8 +167,9 @@ function presentSubmitButton(){
 function submitResponse() {
     if (responses.length > 0) {
         let currentDateInMillis = Date.now();
+
         let responseJSON = {
-            id: currentDateInMillis,
+            id: pageSurveyId+"|"+getAuthCookies().uid,
             uid: getAuthCookies().uid,
             date: currentDateInMillis,
             responses: []

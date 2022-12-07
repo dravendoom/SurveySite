@@ -1,0 +1,46 @@
+{
+  "title": "Do you like pizza survey",
+  "numberOfQuestions": 10,
+  "analytics":{
+    "dateCreated": 228373123,
+    "respondents": 10,
+    "questionAnalytics": [
+      {
+        "type": "MULTIPLE_CHOICE",
+        "question": "Do you like pizza?",
+        "data": [
+          ["Yes", 8],
+          ["No", 1],
+          ["Maybe",1]]
+      }, {
+        "type": "SLIDER",
+        "question": "How much?",
+        "data": [
+          [100, 8],
+          [50, 1],
+          [23,1]]
+      }, {
+        "type": "MULTIPLE_CHOICE",
+        "question": "Do you like pizza?",
+        "data": [
+          ["Yes", 8],
+          ["No", 1],
+          ["Maybe",1]]
+      }, {
+        "type": "SLIDER",
+        "question": "How much?",
+        "data": [
+          [100, 8],
+          [50, 1],
+          [23,1]]
+      }, {
+        "type": "SLIDER",
+        "question": "How much?",
+        "data": [
+          [100, 8],
+          [50, 1],
+          [23,1]]
+      }
+    ]
+  }
+}

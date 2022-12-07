@@ -1,10 +1,10 @@
-let firstName, lastName, birthDate, organization, email, password, confirmPassword;
+let firstName, lastName, birthDate, organization, emailText, password, confirmPassword;
 
 firstName = document.getElementById("first_name_input");
 lastName = document.getElementById("last_name_input");
 birthDate= document.getElementById("birthdate_input");
 organization = document.getElementById("org_name_input");
-email = document.getElementById("email_input");
+emailText = document.getElementById("email_input");
 password = document.getElementById("password_input");
 confirmPassword = document.getElementById("password_confirm_input");
 
@@ -17,7 +17,7 @@ function validateInputs(){
         lastName.value +
         birthDate.value +
         organization.value +
-        email.value +
+        emailText.value +
         password.value +
         confirmPassword.value);
 
@@ -26,7 +26,7 @@ function validateInputs(){
         || isEmpty(lastName.value)
         || isEmpty(birthDate.value)
         || isEmpty(organization.value)
-        || isEmpty(email.value)
+        || isEmpty(emailText.value)
         || isEmpty(password.value)
         || isEmpty(confirmPassword.value)
     ){
@@ -35,7 +35,7 @@ function validateInputs(){
     }
 
     // check if email is in correct format
-    if(!checkEmailIsValid(email.value)){
+    if(!checkEmailIsValid(emailText.value)){
         alert("Email is not in correct format!");
         return false;
     }
@@ -58,7 +58,7 @@ function validateInputs(){
         "userName": firstName.value + " " + lastName.value,
         "birthDate": birthDate.value,
         "organization": organization.value,
-        "email": email.value,
+        "email": emailText.value,
         "password": password.value,
     });
 }
@@ -68,7 +68,7 @@ function clearInputs(){
     lastName.value = "";
     birthDate.value = "";
     organization.value = "";
-    email.value = "";
+    emailText.value = "";
     password.value = "";
     confirmPassword.value = "";
 }
