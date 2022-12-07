@@ -17,41 +17,46 @@
     <script src="../scripts/survey_interactive.js" type="application/javascript" defer></script>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <script src="../scripts/navigation.js" type="application/javascript"></script>
-    <!-- DIV used to present dynamic content -->
-    <h1 id="survey_interactive_survey_title">Survey Title</h1>
-    <div id="survey_interactive_div" style="width: 75vw; height: 75vh; background-color: #d5d5d5">
-        <div id="survey_interactive_start_survey_div">
-            <h3>Ready to start the survey?</h3>
-            <button id="survey_interactive_start_survey_button" onclick="start()">
-                Start
-            </button>
-        </div>
-        <div id="survey_interactive_question_info_div">
-            <div id="survey_interactive_question" style="font-size: 26px" hidden>Do you like pizza?</div>
-            <div style="font-size: 16px" hidden>Respond with only one response</div>
-        </div>
-        <div id="survey_interactive_multiple_choice_div" hidden>
-
-        </div>
-        <div id="survey_interactive_slider_div" hidden>
-                <!-- SLIDER ELEMENTS-->
-            <h4 id="survey_interactive_slider_input_value">SL Value</h4>
-            <label for="survey_interactive_slider_input"></label>
-            <input id="survey_interactive_slider_input" type="range" min="1" max="3" oninput="updateSliderResponse()"/>
-        </div>
-        <div id="survey_interactive_button_div" style="width: 100%;">
-            <button id="survey_interactive_prev_question_button" onclick="presentPrevQuestion()">
-                Prev
-            </button>
-            <button id="survey_interactive_next_question_button" onclick="presentNextQuestion()">
-                Next
-            </button>
-        </div>
+<!-- Navigation Bar -->
+<script src="../scripts/navigation.js" type="application/javascript"></script>
+<!-- DIV used to present dynamic content -->
+<h1 id="survey_interactive_survey_title">Survey</h1>
+<div id="survey_interactive_div"style="width: 66%" class="card container pb-4">
+    <div id="survey_interactive_start_survey_div">
+        <h3 class="row text-center justify-content-center">Ready to start the survey?</h3>
+        <button class="row mx-auto px-5 border-primary rounded-2" id="survey_interactive_start_survey_button" onclick="start()">
+            Start
+        </button>
     </div>
-    <button id="survey_interactive_submit_button" onclick="submitResponse()" hidden>
-        Submit
-    </button>
+    <div class="row mx-auto" id="survey_interactive_question_info_div">
+        <div id="survey_interactive_question" style="font-size: 26px" hidden>Do you like pizza?</div>
+        <div style="font-size: 16px" hidden>Respond with only one response</div>
+    </div>
+    <div class="row mx-auto" id="survey_interactive_multiple_choice_div" hidden>
+        <label for="survey_interactive_radio1">Yes</label>
+        <input id="survey_interactive_radio1" name="question1" type="radio" value="test1"/>
+        <label for="survey_interactive_radio2">Maybe</label>
+        <input id="survey_interactive_radio2" name="question1" type="radio" value="test1"/>
+        <label for="survey_interactive_radio3">No</label>
+        <input id="survey_interactive_radio3" name="question1" type="radio" value="test1"/>
+    </div>
+    <div class="row mx-auto" id="survey_interactive_slider_div" hidden>
+        <!-- SLIDER ELEMENTS-->
+        <h4 class="text-center" id="survey_interactive_slider_input_value">SL Value</h4>
+        <label for="survey_interactive_slider_input"></label>
+        <input id="survey_interactive_slider_input" type="range" min="1" max="3" oninput="updateSliderResponse()"/>
+    </div>
+    <div class="row mt-5" id="survey_interactive_button_div" style="width: 100%;">
+        <button style="width: 10%" class="mx-auto border-dark rounded-2 shadow" id="survey_interactive_prev_question_button" onclick="presentPrevQuestion()">
+            Prev
+        </button>
+        <button style="width: 10%" class="mx-auto border-dark rounded-2 shadow" id="survey_interactive_next_question_button" onclick="presentNextQuestion()">
+            Next
+        </button>
+    </div>
+</div>
+<button id="survey_interactive_submit_button" onclick="submitResponse()" hidden>
+    Submit
+</button>
 </body>
 </html>

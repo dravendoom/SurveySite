@@ -116,7 +116,7 @@ function showMultipleChoiceQuestion(question){
 
         let checkedString = (responses[currentQuestionPosition] !== null && id === chosenMcId[currentQuestionPosition]) ? "checked" : null;
 
-        answersDiv.innerHTML = "<label for=\""+id+"\">"+answer+"</label>\n" +
+        answersDiv.innerHTML = "<label class='border-bottom text-center' for=\""+id+"\">"+answer+"</label>\n" +
             "            <input id=\""+id+"\" name=\"question"+currentQuestionPosition+"\" type=\"radio\" value=\""+answer+"\"" +
             "            oninput='storeResponse(id)' "+checkedString+"/>";
 

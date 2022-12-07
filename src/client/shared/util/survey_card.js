@@ -1,46 +1,42 @@
 function generateSurveyCard(surveyId, title, description, dateCreated, creatorName, image){
     let surveyCard = document.createElement("div");
-    surveyCard.classList.add("col");
+    surveyCard.classList.add("col","card","shadow");
     surveyCard.classList.add("pb-2");
     surveyCard.classList.add("ms-1");
     surveyCard.classList.add("me-1")
-    surveyCard.style.backgroundColor = "#dddddd";
     surveyCard.style.maxWidth = "25vw";
 
-    surveyCard.innerHTML = "                <h3>"+title+"</h3>\n" +
-        "                <p>"+description+"</p>\n" +
-        "                <span>Created by "+creatorName+"</span>\n" +
-        "                <img class=\"img-fluid img-thumbnail\" src=\""+image+"\"\n" +
+    surveyCard.innerHTML = "                <h3 class='text-center border-bottom shadow rounded-pill'>"+title+"</h3>\n" +
+        "                <p class='text-center'>"+description+"</p>\n" +
+        "                <span>Created by: "+creatorName+"</span>\n" +
+        "                <img class=\"img-fluid img-thumbnail rounded-4 shadow mb-4\" src=\""+image+"\"\n" +
         "                     alt=\"pizza\"\n" +
         "                >\n" +
-        "                <button style=\"display: block\" onclick='openSurvey("+surveyId+")'>Start</button>";
+        "                <button class='border-primary rounded-2 bg-color-grayer' onclick='openSurvey("+surveyId+")'>Start</button>";
     return surveyCard;
 }
 
 function generateCreatorSurveyCard(id, title, description, dateCreated, creatorName, image){
     let creatorSurveyCard = document.createElement("div");
-    creatorSurveyCard.classList.add("col");
+    creatorSurveyCard.classList.add("col","card","shadow");
     creatorSurveyCard.classList.add("pb-2");
     creatorSurveyCard.classList.add("ms-1");
     creatorSurveyCard.classList.add("me-1")
-    creatorSurveyCard.style.backgroundColor = "#dddddd";
     creatorSurveyCard.style.maxWidth = "25vw";
 
-    creatorSurveyCard.innerHTML = "                <h3>"+title+"</h3>\n" +
-        "                <p>"+description+"</p>\n" +
-        "                <span>Created by "+creatorName+"</span>\n" +
-        "                <img class=\"img-fluid img-thumbnail\" src=\""+image+"\"\n" +
+    creatorSurveyCard.innerHTML = "                <h3 class='text-center border-bottom shadow rounded-pill'>"+title+"</h3>\n" +
+        "                <p class='text-center'>"+description+"</p>\n" +
+        "                <span>Created by: "+creatorName+"</span>\n" +
+        "                <img class=\"img-fluid img-thumbnail rounded-4 shadow mb-4\" src=\""+image+"\"\n" +
         "                     alt=\"pizza\"\n" +
         "                >\n" +
-        "                <button style=\"display: block; background-color: #0dcaf0; color: #1a1a1a\" onclick='openAnalytics("+id+")'>Analytics</button>";
+        "                <button class='border-primary rounded-2 bg-color-grayer' onclick='openAnalytics("+id+")' >Analytics</button>";
     return creatorSurveyCard;
 }
 
 function generateRowDiv(){
     let rowDiv = document.createElement("div");
     rowDiv.classList.add("row");
-    rowDiv.classList.add("ms-2");
-    rowDiv.classList.add("me-2");
     return rowDiv;
 }
 

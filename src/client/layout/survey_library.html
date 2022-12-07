@@ -21,16 +21,18 @@
     <script src="../scripts/survey_library.js" type="application/javascript" defer></script>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <script src="../scripts/navigation.js" type="application/javascript"></script>
-    <h1 id="survey_library_welcome_header">Welcome back, John Doe</h1>
+<!-- Navigation Bar -->
+<script src="../scripts/navigation.js" type="application/javascript"></script>
+<h1 id="survey_library_welcome_header">Welcome back, John Doe</h1>
 
-    <div id="survey_library_no_surveys_created_div" hidden>
-        <p class="ms-2">Looks like your survey library is empty. Let's make a survey.</p>
-    </div>
-    <div id="survey_library_created_surveys_list" hidden>
-        <h2>Your surveys</h2>
-    </div>
-    <button id="create_new_survey_button"><a href="survey_creator.html">Create</a></button>
+<div id="survey_library_no_surveys_created_div" hidden>
+    <p>Looks like your survey library is empty. Let's make a survey.</p>
+</div>
+<div id="survey_library_created_surveys_list" hidden>
+    <h2>Your surveys</h2>
+</div>
+<div class="row mx-auto mt-4">
+    <button class="border-warning shadow rounded-2 pb-4 pt-4 text-center" id="create_new_survey_button"><a href="survey_creator.html">Create New Survey</a></button>
+</div>
 </body>
 </html>
