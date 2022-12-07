@@ -2,58 +2,170 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Survey Creator</title>
+  <title>Survey Feed</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="css/styles.css" rel="stylesheet" />
   <!-- Socket.io -->
   <script src="../../../node_modules/socket.io/client-dist/socket.io.js"
           type="application/javascript"></script>
   <script src="https://cdn.socket.io/4.5.3/socket.io.min.js"
           integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi"
           crossorigin="anonymous"></script>
+  <!-- Our Scripts -->
   <!-- our scripts -->
   <script src="../shared/util/client_server_auth_util.js"></script>
   <script src="../shared/model/user.js"></script>
   <!-- Client Connection -->
   <script src="../scripts/client.js" type="application/javascript"></script>
-
-  <script src="../scripts/survey_creator.js" type="application/javascript" defer></script>
 </head>
 <body>
 <!-- Navigation Bar -->
 <script src="../scripts/navigation.js" type="application/javascript"></script>
-<h1>Create New Survey</h1>
-<div class="ms-3">
-  <p>
-    <label for="survey_creator_title_input">Title</label>
-  </p>
-  <p>
-    <input id="survey_creator_title_input"/>
-  </p>
-  <p>
-    <label for="survey_creator_description_input">Description</label>
-  </p>
-  <p>
-    <textarea id="survey_creator_description_input"></textarea>
-  </p>
-  <p>
-    <label for="survey_creator_image_input">Survey Image</label>
-  </p>
-  <p>
-    <input id="survey_creator_image_input" type="file" alt="none"/>
-  </p>
-  <h2>Add Questions</h2>
-  <div id="survey_creator_questions_div">
-
+<h1>Popular Surveys</h1>
+<div id="survey_feed_popular_list">
+  <!--Develope carosel potentially.-->
+  <div class="container px-5 mb-2">
+    <div class="card border-0 shadow rounded-3 overflow-hidden">
+      <div class="card-body p-0">
+        <div class="row">
+          <div class="col-lg-4 col-xl-5 py-lg-5">
+            <div class="p-4 p-md-5">
+              <div class="h2 fw-bolder">Survey name: ######</div>
+              <p> This survey is a default survey, used for testing the program at large. This is a beta test, or wait no an alpha test? not sure ok this is enough text now... bye? </p>
+              <a class="stretched-link text-decoration-none" href="#!">
+                Read more
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 align-content-center justify-content-center">
+            <div style="height: 27%; max-width: 27%">
+            </div>
+            <div class="align-content-center justify-content-center">
+              <img style="max-height: 50%" class="img-thumbnail" src="https://ds6br8f5qp1u2.cloudfront.net/blog/wp-content/uploads/2021/09/Customer-Satisfaction-Survey_-Best-Questions-And-Examples-In-2021@2x.png?x82505" alt="..." />
+            </div>
+          </div>
+          <div class="col-lg-5 ml-lg-4 align-self-center border border-right-0 border-bottom-0 border-top-0" id="multiple_choice_div">
+            <div class="col">
+              <div class="h2 fw-bolder" style="width: 50%">Options:</div>
+              <div class="row-cols-1">
+                <button id="start_button" class="bg-color-confirm border-black rounded " style="width: 66%">
+                  Start
+                </button>
+              </div>
+              <div class="row-cols-1 mt-2">
+                <button id="delete_button" class="bg-danger bg-gradient border-black rounded " style="width: 66%">
+                  Delete
+                </button>
+              </div>
+              <!--THE EDIT BUTTON SHOULD ONLY APPEAR FOR USERS WITH THE PERMISSIONS TO DO SO -->
+              <div class="row-cols-1 mt-2">
+                <button id="edit_button" class="bg-warning border-black rounded " style="width: 66%">
+                  Edit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <p>
-    <button class="mt-3" onclick="addMultipleChoiceQuestionPrompt()">Multiple Choice Question +</button>
-    <button class="mt-3" onclick="addSliderQuestionPrompt()">Slider Question +</button>
-  </p>
-  <p>
-    <label for="survey_creator_submit">Publish Survey</label>
-  </p>
-  <p>
-    <input id="survey_creator_submit" type="submit" value="Create" onclick="submitQuestions()"/>
-  </p>
-</div>
+  <div class="container px-5 mb-2">
+    <div class="card border-0 shadow rounded-3 overflow-hidden">
+      <div class="card-body p-0">
+        <div class="row">
+          <div class="col-lg-4 col-xl-5 py-lg-5">
+            <div class="p-4 p-md-5">
+              <div class="h2 fw-bolder">Survey name: ######</div>
+              <p> This survey is a default survey, used for testing the program at large. This is a beta test, or wait no an alpha test? not sure ok this is enough text now... bye? </p>
+              <a class="stretched-link text-decoration-none" href="#!">
+                Read more
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 align-content-center justify-content-center">
+            <div style="height: 27%; max-width: 27%">
+            </div>
+            <div class="align-content-center justify-content-center">
+              <img style="max-height: 50%" class="img-thumbnail" src="https://ds6br8f5qp1u2.cloudfront.net/blog/wp-content/uploads/2021/09/Customer-Satisfaction-Survey_-Best-Questions-And-Examples-In-2021@2x.png?x82505" alt="..." />
+            </div>
+          </div>
+          <div class="col-lg-5 ml-lg-4 align-self-center border border-right-0 border-bottom-0 border-top-0" id="multiple_choice_div">
+            <div class="col">
+              <div class="h2 fw-bolder" style="width: 50%">Options:</div>
+              <div class="row-cols-1">
+                <button id="start_button" class="bg-color-confirm border-black rounded " style="width: 66%">
+                  Start
+                </button>
+              </div>
+              <div class="row-cols-1 mt-2">
+                <button id="delete_button" class="bg-danger bg-gradient border-black rounded " style="width: 66%">
+                  Delete
+                </button>
+              </div>
+              <!--THE EDIT BUTTON SHOULD ONLY APPEAR FOR USERS WITH THE PERMISSIONS TO DO SO -->
+              <div class="row-cols-1 mt-2">
+                <button id="edit_button" class="bg-warning border-black rounded " style="width: 66%">
+                  Edit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1>Community Surveys</h1>
+  <div id="survey_feed_community_list">
+    <div class="container px-5">
+      <div class="card border-0 shadow rounded-3 overflow-hidden">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-lg-4 col-xl-5 py-lg-5">
+              <div class="p-4 p-md-5">
+                <div class="h2 fw-bolder">Survey name: ######</div>
+                <p> This survey is a default survey, used for testing the program at large. This is a beta test, or wait no an alpha test? not sure ok this is enough text now... bye? </p>
+                <a class="stretched-link text-decoration-none" href="#!">
+                  Read more
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-2 align-content-center justify-content-center">
+              <div style="height: 27%; max-width: 27%">
+              </div>
+              <div class="align-content-center justify-content-center">
+                <img style="max-height: 50%" class="img-thumbnail" src="https://ds6br8f5qp1u2.cloudfront.net/blog/wp-content/uploads/2021/09/Customer-Satisfaction-Survey_-Best-Questions-And-Examples-In-2021@2x.png?x82505" alt="..." />
+              </div>
+            </div>
+            <div class="col-lg-5 ml-lg-4 align-self-center border border-right-0 border-bottom-0 border-top-0" id="multiple_choice_div">
+              <div class="col">
+                <div class="h2 fw-bolder" style="width: 50%">Options:</div>
+                <div class="row-cols-1">
+                  <button id="start_button" class="bg-color-confirm border-black rounded " style="width: 66%">
+                    Start
+                  </button>
+                </div>
+                <div class="row-cols-1 mt-2">
+                  <button id="delete_button" class="bg-danger bg-gradient border-black rounded " style="width: 66%">
+                    Delete
+                  </button>
+                </div>
+                <!--THE EDIT BUTTON SHOULD ONLY APPEAR FOR USERS WITH THE PERMISSIONS TO DO SO -->
+                <div class="row-cols-1 mt-2">
+                  <button id="edit_button" class="bg-warning border-black rounded " style="width: 66%">
+                    Edit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
