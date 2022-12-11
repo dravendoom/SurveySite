@@ -107,7 +107,6 @@ function submitQuestions(){
 function packSurvey(){
     let title = document.getElementById("survey_creator_title_input").value;
     let description = document.getElementById("survey_creator_description_input").value;
-    let imagePath = document.getElementById("survey_creator_image_input").value;
 
     if(title === "" || title === null){
         alert("Survey must have a title");
@@ -125,7 +124,7 @@ function packSurvey(){
         title: title,
         description: description,
         dateCreated: Date.now(),
-        hasImage: imagePath!==null,
+        hasImage: false,
         imageId: -1,
         questions: []
     }

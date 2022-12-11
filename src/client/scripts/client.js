@@ -3,6 +3,17 @@ let socket = io();
 connectToServer();
 
 function connectToServer(){
+
+    if(
+        (!window.location.href.includes("index.html")
+        && !window.location.href.includes("survey_feed.html")
+        && !window.location.href.includes("login.html")
+        && !window.location.href.includes("sign_up.html")
+        ) && getAuthCookies().status === "AUTH_NULL"){
+        window.location.assign("../layout/sign_up.html");
+        alert("Please Sign Up or Login to continue");
+    }
+
     socket.on("connection", (socket)=>{
 
     });

@@ -136,7 +136,16 @@ io.on("connection", (socket) =>{
    });
 
    socket.on("query_community_surveys", (maxSurveyCount)=>{
-      socket.emit("query_community_surveys_result", database.surveysJson);
+
+      let allCraftedSurveysJson = {};
+
+      for(let surveyId in database.surveysJson){
+         let craftedSurveyJson = getSurveyFromDatabase(surveyId);
+         craftedSurveyJson.userName = getUserNameFromId(craftedSurveyJson.creatorId);
+         allCraftedSurveysJson[surveyId] = craftedSurveyJson;
+      }
+
+      socket.emit("query_community_surveys_result", allCraftedSurveysJson);
    });
 
    socket.on("query_user_surveys", (userId)=>{
@@ -150,6 +159,10 @@ io.on("connection", (socket) =>{
    socket.on("query_survey_analytics", (surveyId)=>{
       socket.emit("query_survey_analytics_result", getAnalyticsForSurvey(surveyId));
    });
+
+   socket.on("query_username", (uid)=>{
+      socket.emit("query_username_result", getUserNameFromId(uid));
+   })
 
 });
 
@@ -188,6 +201,14 @@ function addUserToDatabase(user){
       "password": user.password,
    };
    printDatabase();
+}
+
+function getUserNameFromId(inputUserId){
+   try {
+      return (database.users[inputUserId] !== null) ? database.users[inputUserId].userName : null;
+   } catch(exception){
+      return "n/a";
+   }
 }
 
 function addSurveyToDatabase(survey){
@@ -275,8 +296,22 @@ function getQuestionAnalytics(surveyId){
    for(let aQuestion of survey.questions){
       let specificQuestionAnalyticArray = [];
 
-      for(let answer of aQuestion.answers){
-         specificQuestionAnalyticArray.push([answer, 0]);
+      if(aQuestion.type === "MULTIPLE_CHOICE") {
+         for (let answer of aQuestion.answers) {
+            specificQuestionAnalyticArray.push([answer, 0]);
+         }
+      } else if(aQuestion.type === "SLIDER") {
+         for (let individualResponse in responses) {
+            let responseToCheck = responses[individualResponse].responses[i].response;
+            let shouldPushNewValue = true;
+            for(let subArray of specificQuestionAnalyticArray) {
+               if (subArray[0] === responseToCheck) {
+                  shouldPushNewValue = false;
+                  break;
+               }
+            }
+            if(shouldPushNewValue) specificQuestionAnalyticArray.push([responseToCheck, 0]);
+         }
       }
 
       for(let individualResponse in responses) {

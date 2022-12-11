@@ -17,6 +17,7 @@ function generateSurveyCard(surveyId, title, description, dateCreated, creatorNa
 }
 
 function generateCreatorSurveyCard(id, title, description, dateCreated, creatorName, image){
+
     let creatorSurveyCard = document.createElement("div");
     creatorSurveyCard.classList.add("col","card","shadow");
     creatorSurveyCard.classList.add("pb-2");

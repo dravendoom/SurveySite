@@ -22,8 +22,12 @@ function getAnalyticsFromServer(){
 }
 
 function implementAnalyticsLayout(surveyAnalyticsObject){
+
+    let surveyCreatedDateObject = new Date(surveyAnalyticsObject.analytics.dateCreated);
+    let dateString = surveyCreatedDateObject.toLocaleDateString();
+
     surveyTitleHeader.innerText = "Analytics for \"" + surveyAnalyticsObject.title +"\"";
-    surveyDateCreatedText.innerText = surveyAnalyticsObject.analytics.dateCreated;
+    surveyDateCreatedText.innerText = dateString;
     surveyRespondentsNumberText.innerText = surveyAnalyticsObject.analytics.respondents;
 
     if(surveyAnalyticsObject.analytics.respondents === 0) {
@@ -37,8 +41,10 @@ function implementAnalyticsLayout(surveyAnalyticsObject){
 
         let qType = analyticQuestion.type === "MULTIPLE_CHOICE" ? "Multiple Choice" : "Slider";
 
+        let questionString = analyticQuestion.question + "<br>" + "<span style='font-size: 12px'>x-axis: value <br> y-axis: # of responses</span>"
+
         questionDiv.innerHTML = "<h3>Question "+i+" ("+qType+")</h3>\n" +
-            "            <span style=\"font-size: 22px\">"+analyticQuestion.question+"</span>";
+            "            <span style=\"font-size: 22px\">"+questionString+"</span>";
         let canvas = generateCanvas();
 
         surveyAnalyticsHolderDiv.append(questionDiv);
