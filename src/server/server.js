@@ -28,14 +28,7 @@ let io = new Server(httpServer, {});
    // Store all created surveys
 let database = {
    users: {
-      "1670213963808":{
-         "uid":1670213963808,
-         "userName":"Born Yesterday",
-         "birthDate":"2022-12-03",
-         "organization":"UNF",
-         "email": "testy@unf.edu",
-         "password":"InitialD86"
-      }
+
    },
    surveys: [
 
