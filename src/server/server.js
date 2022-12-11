@@ -125,8 +125,13 @@ io.on("connection", (socket) =>{
    // survey processing
    socket.on("publish_survey", (survey)=>{
       console.log("Received "+ JSON.stringify(survey) +" by " + survey.creatorId + " and pushing it to the database");
-      addSurveyToDatabase(survey);
-      socket.emit("publish_survey_result", true);
+      if(getSurveyCountByUser(survey.creatorId) < 255) {
+         console.log("SURVEY COUNT FOR " + getUserNameFromId(survey.creatorId) + ": " +getSurveyCountByUser(survey.creatorId));
+         addSurveyToDatabase(survey);
+         socket.emit("publish_survey_result", true);
+      } else {
+         socket.emit("publish_survey_result", false);
+      }
    })
 
    // survey query service
@@ -242,6 +247,16 @@ function getSurveysByUser(uid){
       console.log("have not found survey")
    }
    return allUserSurveys;
+}
+
+function getSurveyCountByUser(uid){
+   let count = 0;
+   for(let surveyId of database.surveys){
+      if(database.surveysJson[surveyId].creatorId == uid){
+         count++;
+      }
+   }
+   return count;
 }
 
 function getUserFromDatabase(uid){

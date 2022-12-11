@@ -22,7 +22,13 @@ function populateUserSurveys(){
         } else {
             userSurveysDiv.hidden = false;
             noSurveysCreatedDiv.hidden = true;
+            let surveyCount = 0;
             for (let surveyId in surveys) {
+                if(surveyCount === 4){
+                    userSurveysDiv.appendChild(rowDiv);
+                    rowDiv = generateRowDiv();
+                    surveyCount = 0;
+                }
                 rowDiv.appendChild(generateCreatorSurveyCard(
                     surveyId,
                     surveys[surveyId].title,
@@ -31,9 +37,10 @@ function populateUserSurveys(){
                     getAuthCookies().userName,
                     "https://ds6br8f5qp1u2.cloudfront.net/blog/wp-content/uploads/2021/09/Customer-Satisfaction-Survey_-Best-Questions-And-Examples-In-2021@2x.png?x82505")
                 )
+                surveyCount++;
             }
+
+            userSurveysDiv.appendChild(rowDiv);
         }
     })
-
-    userSurveysDiv.appendChild(rowDiv);
 }
