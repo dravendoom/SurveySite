@@ -209,7 +209,7 @@ function processSliderQuestion(slArray, questionNumber){
     if(min === "" || max === ""){
         alert("At least one of your slider questions are missing min and max values")
         return null;
-    } else if(min >= max){
+    } else if(Number.parseInt(min) >= Number.parseInt(max)){
         console.log("min greater than max");
         alert("One of your slider questions has an min greater than or equal to max");
         return null;
