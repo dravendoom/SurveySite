@@ -1,0 +1,18 @@
+Bootstrap5 - HTML and CSS styling/templates.
+    > https://getbootstrap.com/
+    > https://startbootstrap.com/template/modern-business
+
+W3 Schools - HTML, CSS, and JS
+     > https://www.w3schools.com/
+
+Express.JS - Serving static files to client.
+    > https://expressjs.com/
+
+Socket.io - Connecting express app to HTTP server and creating a socket between the client and server.
+    > https://socket.io/
+
+Chart.js - Creating charts for analytics
+    > https://www.chartjs.org/
+
+mysqljs - Connecting the node.js server to the mysql database.
+    > https://github.com/mysqljs/mysql
